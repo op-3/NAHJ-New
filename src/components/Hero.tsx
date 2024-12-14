@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FiChevronDown } from "react-icons/fi";
 import { Tilt } from "react-tilt";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
 interface FloatingShapeProps {
   className: string;
@@ -45,6 +46,33 @@ const FloatingShape: React.FC<FloatingShapeProps> = ({
 };
 
 const ParticleEffect = () => {
+  const [dimensions, setDimensions] = useState({ width: 1000, height: 1000 });
+
+  useEffect(() => {
+    setDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const getRandomPosition = () => {
+    return Math.random() * dimensions.width;
+  };
+
+  const getRandomHeight = () => {
+    return Math.random() * dimensions.height;
+  };
+
   return (
     <div className="absolute inset-0 overflow-hidden">
       {[...Array(20)].map((_, i) => (
@@ -52,12 +80,12 @@ const ParticleEffect = () => {
           key={i}
           className="absolute w-1 h-1 bg-nahj-copper/20 rounded-full"
           initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: getRandomPosition(),
+            y: getRandomHeight(),
           }}
           animate={{
-            y: [null, Math.random() * window.innerHeight],
-            x: [null, Math.random() * window.innerWidth],
+            y: [null, getRandomHeight()],
+            x: [null, getRandomPosition()],
           }}
           transition={{
             duration: Math.random() * 10 + 20,
@@ -69,6 +97,10 @@ const ParticleEffect = () => {
     </div>
   );
 };
+
+const DynamicParticleEffect = dynamic(() => Promise.resolve(ParticleEffect), {
+  ssr: false,
+});
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
@@ -95,7 +127,7 @@ export default function Hero() {
           animationDuration={8}
         />
 
-        <ParticleEffect />
+        <DynamicParticleEffect />
 
         <div
           className="absolute inset-0 hidden sm:block opacity-30"
@@ -112,12 +144,10 @@ export default function Hero() {
         ref={containerRef}
         className="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden"
       >
-        {/* Main content container */}
         <motion.div
           style={{ y, opacity }}
           className="relative z-10 w-full flex-1 flex items-center justify-center"
         >
-          {/* Logo container */}
           <div className="w-full flex justify-center items-center px-4 sm:px-6 lg:px-8">
             <Tilt options={TILT_OPTIONS}>
               <motion.div
@@ -140,8 +170,8 @@ export default function Hero() {
                   width={500}
                   height={500}
                   className="w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[500px] 
-           relative z-10 object-contain
-           [filter:drop-shadow(0_0_15px_rgba(0,0,0,0.4))_drop-shadow(0_0_30px_rgba(0,0,0,0.3))_drop-shadow(0_0_45px_rgba(0,0,0,0.2))]"
+                  relative z-10 object-contain
+                  [filter:drop-shadow(0_0_15px_rgba(0,0,0,0.4))_drop-shadow(0_0_30px_rgba(0,0,0,0.3))_drop-shadow(0_0_45px_rgba(0,0,0,0.2))]"
                   style={{ aspectRatio: "1/1" }}
                 />
               </motion.div>
@@ -149,7 +179,6 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Scroll indicator positioned at the bottom of hero section */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
