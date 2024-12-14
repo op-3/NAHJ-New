@@ -1,3 +1,4 @@
+// tailwind.config.ts
 import type { Config } from "tailwindcss";
 
 export default {
@@ -9,10 +10,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        "nahj-copper": "#C17F59",
+        nahj: {
+          copper: "#C17F59",
+          white: "#FFFFFF",
+          light: "#F8F8F8",
+          dark: "#2D2D2D",
+        },
+        borderWidth: {
+          "3": "3px",
+        },
       },
     },
+    darkMode: "class",
   },
   plugins: [],
 } satisfies Config;
