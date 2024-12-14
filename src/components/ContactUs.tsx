@@ -85,8 +85,8 @@ export default function ContactUs() {
               className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto
                         relative z-10 py-4 px-8"
             >
-              Let's discuss your project and see how we can help you achieve
-              your goals
+              Let&apos;s discuss your project and see how we can help you
+              achieve your goals
               <div
                 className="absolute -top-2 left-0 w-12 h-12 border-t-2 border-l-2 
                            border-nahj-copper/30 transform -translate-x-4"

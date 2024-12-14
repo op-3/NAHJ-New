@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FiChevronDown } from "react-icons/fi";
 import { Tilt } from "react-tilt";
+import Image from "next/image";
 
 interface FloatingShapeProps {
   className: string;
@@ -159,12 +160,14 @@ export default function Hero() {
                   }}
                   transition={{ duration: 3, repeat: Infinity }}
                 />
-                <img
+                <Image
                   src="/Untitled-3.png"
                   alt="NAHJ Logo"
+                  width={500}
+                  height={500}
                   className="w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[500px] 
-                           relative z-10 object-contain
-                           [filter:drop-shadow(0_0_15px_rgba(0,0,0,0.4))_drop-shadow(0_0_30px_rgba(0,0,0,0.3))_drop-shadow(0_0_45px_rgba(0,0,0,0.2))]"
+           relative z-10 object-contain
+           [filter:drop-shadow(0_0_15px_rgba(0,0,0,0.4))_drop-shadow(0_0_30px_rgba(0,0,0,0.3))_drop-shadow(0_0_45px_rgba(0,0,0,0.2))]"
                   style={{ aspectRatio: "1/1" }}
                 />
               </motion.div>
