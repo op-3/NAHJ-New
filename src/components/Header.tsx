@@ -30,10 +30,10 @@ export default function Header() {
   }, []);
 
   const navItems = [
-    { name: "الرئيسية", href: "#home" },
-    { name: "من نحن", href: "#about" },
-    { name: "خدماتنا", href: "#services" },
-    { name: "مشاريعنا", href: "#projects" },
+    { name: "Home", href: "#home" },
+    { name: "About Us", href: "#about" },
+    { name: "Our Services", href: "#services" },
+    { name: "Our Projects", href: "#projects" },
   ];
 
   return (
@@ -86,7 +86,7 @@ export default function Header() {
           </button>
 
           <button className="hidden md:block px-5 py-2 bg-[#C17F59] text-white text-base rounded-full font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
-            اتصل بنا
+            Contact Us
           </button>
         </div>
 
