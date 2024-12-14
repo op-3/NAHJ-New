@@ -4,10 +4,17 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Code, Smartphone, Cloud, Database, Lock, Brush } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const services = [
+interface Service {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
+const services: Service[] = [
   {
     icon: Code,
     title: "Web Development",
@@ -55,7 +62,7 @@ export default function Services() {
   const lineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // حركة العنوان
+    // Title animation
     const tl = gsap.timeline();
 
     tl.fromTo(
@@ -98,7 +105,7 @@ export default function Services() {
         "-=0.5"
       );
 
-    // حركة البطاقات
+    // Cards animation
     cardRefs.current.forEach((card, index) => {
       gsap.fromTo(
         card,
@@ -124,10 +131,12 @@ export default function Services() {
     });
   }, []);
 
+  const setCardRef = (index: number) => (element: HTMLDivElement | null) => {
+    cardRefs.current[index] = element;
+  };
+
   return (
     <section className="relative min-h-screen z-10 pt-16 pb-20 md:pt-20 md:pb-40">
-      {" "}
-      {/* أضفنا pb-32/pb-40 */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section with New Design */}
         <div ref={headerRef} className="relative text-center mb-20 md:mb-32">
@@ -180,7 +189,7 @@ export default function Services() {
           {services.map((service, index) => (
             <div
               key={service.title}
-              ref={(el) => (cardRefs.current[index] = el)}
+              ref={setCardRef(index)}
               className="group perspective-1000"
             >
               <div
