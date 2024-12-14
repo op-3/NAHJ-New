@@ -44,32 +44,6 @@ const FloatingShape: React.FC<FloatingShapeProps> = ({
   );
 };
 
-const ScrollIndicator = () => {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 1 }}
-      className="absolute bottom-8 sm:bottom-12 left-1/2 transform -translate-x-1/2"
-    >
-      <motion.div
-        animate={{
-          y: [0, 12, 0],
-        }}
-        transition={{
-          duration: 1.8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="w-6 h-6 sm:w-8 sm:h-8 border-2 border-nahj-copper rounded-full flex items-center justify-center
-                  hover:bg-nahj-copper/10 transition-colors duration-300 cursor-pointer group"
-      >
-        <FiChevronDown className="text-nahj-copper w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform duration-300" />
-      </motion.div>
-    </motion.div>
-  );
-};
-
 const ParticleEffect = () => {
   return (
     <div className="absolute inset-0 overflow-hidden">

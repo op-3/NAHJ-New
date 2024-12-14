@@ -10,7 +10,16 @@ import VanillaTilt from "vanilla-tilt";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const projects = [
+interface Project {
+  title: string;
+  description: string;
+  tags: string[];
+  github: string;
+  demo: string;
+  image: string;
+}
+
+const projects: Project[] = [
   {
     title: "Project Name 1",
     description:
@@ -31,16 +40,23 @@ const projects = [
   },
 ];
 
-const ProjectCard = ({ project, index }: any) => {
-  const cardRef = useRef(null);
+interface ProjectCardProps {
+  project: Project;
+  index: number;
+}
+
+const ProjectCard = ({ project, index }: ProjectCardProps) => {
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    VanillaTilt.init(cardRef.current!, {
-      max: 5,
-      speed: 400,
-      glare: true,
-      "max-glare": 0.2,
-    });
+    if (cardRef.current) {
+      VanillaTilt.init(cardRef.current, {
+        max: 5,
+        speed: 400,
+        glare: true,
+        "max-glare": 0.2,
+      });
+    }
   }, []);
 
   return (
@@ -97,7 +113,7 @@ const ProjectCard = ({ project, index }: any) => {
 
         {/* Tags */}
         <div className="flex flex-wrap gap-3 mb-8">
-          {project.tags.map((tag: string) => (
+          {project.tags.map((tag) => (
             <motion.span
               key={tag}
               whileHover={{ scale: 1.05 }}
@@ -137,7 +153,7 @@ const ProjectCard = ({ project, index }: any) => {
 };
 
 export default function OpenSource() {
-  const headerRef = useRef(null);
+  const headerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
