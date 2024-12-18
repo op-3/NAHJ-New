@@ -62,7 +62,6 @@ export default function Services() {
   const lineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Title animation
     const tl = gsap.timeline();
 
     tl.fromTo(
@@ -105,7 +104,6 @@ export default function Services() {
         "-=0.5"
       );
 
-    // Cards animation
     cardRefs.current.forEach((card, index) => {
       gsap.fromTo(
         card,
@@ -136,22 +134,25 @@ export default function Services() {
   };
 
   return (
-    <section className="relative min-h-screen z-10 pt-16 pb-20 md:pt-20 md:pb-40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Section with New Design */}
-        <div ref={headerRef} className="relative text-center mb-20 md:mb-32">
+    <section className="relative min-h-screen w-full py-8 sm:py-12 md:py-16 lg:py-20">
+      <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header Section */}
+        <div
+          ref={headerRef}
+          className="relative text-center mb-12 sm:mb-16 md:mb-20"
+        >
           <div className="relative z-10">
             {/* Decorative Line */}
             <div
               ref={lineRef}
-              className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-24 h-1 
+              className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-16 sm:w-20 md:w-24 h-0.5 sm:h-1
                          bg-gradient-to-r from-nahj-copper to-nahj-copper/70 transform origin-left"
             />
 
             {/* Main Title */}
             <h2
               ref={titleRef}
-              className="text-6xl md:text-8xl font-extrabold tracking-tight mb-8
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tight mb-4 sm:mb-6 md:mb-8
                          bg-gradient-to-r from-nahj-copper to-nahj-copper/70 
                          bg-clip-text text-transparent relative z-10"
             >
@@ -162,20 +163,20 @@ export default function Services() {
             <div className="relative inline-block">
               <p
                 ref={subtitleRef}
-                className="text-xl md:text-2xl text-gray-700 max-w-2xl mx-auto
-                           relative z-10 py-4 px-8"
+                className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 max-w-2xl mx-auto
+                           relative z-10 py-2 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8"
               >
                 Comprehensive technology solutions tailored to your needs
               </p>
 
               {/* Decorative Elements */}
               <div
-                className="absolute -top-2 left-0 w-12 h-12 border-t-2 border-l-2 
-                            border-nahj-copper/30 transform -translate-x-4"
+                className="absolute -top-2 left-0 w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 border-t-2 border-l-2 
+                            border-nahj-copper/30 transform -translate-x-2 sm:-translate-x-3 md:-translate-x-4"
               />
               <div
-                className="absolute -bottom-2 right-0 w-12 h-12 border-b-2 border-r-2 
-                            border-nahj-copper/30 transform translate-x-4"
+                className="absolute -bottom-2 right-0 w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 border-b-2 border-r-2 
+                            border-nahj-copper/30 transform translate-x-2 sm:translate-x-3 md:translate-x-4"
               />
             </div>
           </div>
@@ -184,7 +185,7 @@ export default function Services() {
         {/* Services Grid */}
         <div
           ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
         >
           {services.map((service, index) => (
             <div
@@ -193,50 +194,34 @@ export default function Services() {
               className="group perspective-1000"
             >
               <div
-                className="h-full bg-white/10 backdrop-blur-xl p-6 md:p-8 rounded-[20px] md:rounded-[30px] 
-                            border border-white/20 hover:border-nahj-copper/30 transition-all duration-300
-                            shadow-lg hover:shadow-2xl transform-gpu hover:scale-105 hover:rotate-y-5"
+                className="h-full bg-white/10 backdrop-blur-xl p-4 sm:p-6 md:p-8 
+                          rounded-2xl sm:rounded-[25px] md:rounded-[30px] 
+                          border border-white/20 hover:border-nahj-copper/30 
+                          transition-all duration-300
+                          shadow-lg hover:shadow-2xl 
+                          transform-gpu hover:scale-[1.02] hover:rotate-y-5"
               >
                 <div
-                  className="text-nahj-copper mb-4 md:mb-6 transform-gpu group-hover:scale-110 
-                              group-hover:rotate-12 transition-all duration-300"
+                  className="text-nahj-copper mb-3 sm:mb-4 md:mb-6 
+                            transform-gpu group-hover:scale-110 
+                            group-hover:rotate-12 transition-all duration-300"
                 >
-                  <service.icon className="w-8 h-8 md:w-10 md:h-10" />
+                  <service.icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10" />
                 </div>
                 <h3
-                  className="text-xl md:text-2xl font-bold text-nahj-copper mb-3 md:mb-4 
+                  className="text-lg sm:text-xl md:text-2xl font-bold text-nahj-copper 
+                             mb-2 sm:mb-3 md:mb-4 
                              group-hover:translate-x-2 transition-transform duration-300"
                 >
                   {service.title}
                 </h3>
                 <p
-                  className="text-gray-700 text-base md:text-lg transform-gpu 
-                             group-hover:translate-y-1 transition-transform duration-300"
+                  className="text-sm sm:text-base md:text-lg text-gray-700
+                             transform-gpu group-hover:translate-y-1 
+                             transition-transform duration-300"
                 >
                   {service.description}
                 </p>
-                <div className="mt-6">
-                  <button
-                    className="text-sm md:text-base font-medium text-gray-600 hover:text-nahj-copper 
-                                   transition-all duration-300 flex items-center gap-2 group
-                                   hover:translate-x-2 transform-gpu"
-                  >
-                    Learn More
-                    <svg
-                      className="w-4 h-4 transform transition-all duration-300 group-hover:translate-x-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
-                </div>
               </div>
             </div>
           ))}
