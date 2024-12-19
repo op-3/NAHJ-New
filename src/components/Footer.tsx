@@ -47,7 +47,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative py-20 overflow-hidden">
+    <footer className="relative py-20 overflow-hidden" id="contact">
       {/* Decorative Elements */}
       <div className="absolute inset-0 w-full h-full">
         <div

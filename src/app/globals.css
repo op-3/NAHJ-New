@@ -65,3 +65,7 @@ body {
     backface-visibility: hidden;
   }
 }
+
+html {
+  scroll-behavior: smooth;
+}

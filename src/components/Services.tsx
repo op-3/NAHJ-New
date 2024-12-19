@@ -134,7 +134,10 @@ export default function Services() {
   };
 
   return (
-    <section className="relative min-h-screen w-full py-8 sm:py-12 md:py-16 lg:py-20">
+    <section
+      className="relative min-h-screen w-full py-8 sm:py-12 md:py-16 lg:py-20"
+      id="services"
+    >
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div

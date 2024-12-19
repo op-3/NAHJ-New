@@ -30,7 +30,7 @@ export default function Header() {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "#home" },
+    { name: "Home", href: "#hero" },
     { name: "About Us", href: "#about" },
     { name: "Our Services", href: "#services" },
     { name: "Our Projects", href: "#projects" },
@@ -85,9 +85,13 @@ export default function Header() {
             </div>
           </button>
 
-          <button className="hidden md:block px-5 py-2 bg-[#C17F59] text-white text-base rounded-full font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+          {/* Desktop Contact Button */}
+          <a
+            href="#contact"
+            className="hidden md:block px-5 py-2 bg-[#C17F59] text-white text-base rounded-full font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+          >
             Contact Us
-          </button>
+          </a>
         </div>
 
         {/* Mobile Navigation */}
@@ -108,9 +112,13 @@ export default function Header() {
               </a>
             ))}
             <div className="px-6 py-3 border-t border-gray-100 mt-2">
-              <button className="w-full px-5 py-2 bg-[#C17F59] text-white text-base rounded-full font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
-                اتصل بنا
-              </button>
+              <a
+                href="#contact"
+                className="block text-center px-5 py-2 bg-[#C17F59] text-white text-base rounded-full font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contact Us
+              </a>
             </div>
           </nav>
         </div>

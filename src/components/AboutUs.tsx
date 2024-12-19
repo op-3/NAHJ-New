@@ -152,6 +152,7 @@ export default function About() {
     <section
       ref={containerRef}
       className="relative min-h-screen z-10 pt-16 md:pt-20"
+      id="about"
     >
       <motion.div
         style={{ y, opacity }}

@@ -90,9 +90,9 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
           <div>
             <motion.div
               initial={{ width: 0 }}
-              whileInView={{ width: "30px", sm: "40px", md: "50px" }}
+              whileInView={{ width: "50px" }}
               transition={{ duration: 0.8 }}
-              className="h-0.5 sm:h-1 bg-nahj-copper mb-2 sm:mb-3 md:mb-4"
+              className="h-0.5 sm:h-1 w-[30px] sm:w-[40px] md:w-[50px] bg-nahj-copper mb-2 sm:mb-3 md:mb-4"
             />
             <h3
               className="text-xl sm:text-2xl md:text-3xl font-bold 
@@ -190,6 +190,7 @@ export default function OpenSource() {
     <section
       className="relative min-h-screen w-full 
                       py-8 sm:py-12 md:py-20 lg:py-32 overflow-hidden"
+      id="projects"
     >
       {/* Background Decorations */}
       <div className="absolute inset-0 w-full h-full">
