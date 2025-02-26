@@ -293,16 +293,7 @@ export default function About() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           className="text-center mt-20 mb-20"
-        >
-          {/* <Button
-            size="lg"
-            className="bg-nahj-copper hover:bg-nahj-copper/90 text-white text-xl 
-                       px-12 py-6 rounded-full transition-all duration-300 
-                       transform hover:scale-105 shadow-xl"
-          >
-            Contact Us
-          </Button> */}
-        </motion.div>
+        ></motion.div>
       </motion.div>
     </section>
   );
