@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   Github,
-  Twitter,
   Linkedin,
   Instagram,
   Mail,
@@ -25,22 +24,20 @@ const navigationLinks = [
       { name: "Contact", href: "#contact" },
     ],
   },
-  {
-    title: "Services",
-    links: [
-      { name: "Web Development", href: "#" },
-      { name: "Mobile Development", href: "#" },
-      { name: "UI/UX Design", href: "#" },
-      { name: "Cloud Solutions", href: "#" },
-    ],
-  },
 ];
 
 const socialLinks = [
-  { icon: Github, href: "#", label: "Github" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: Github, href: "https://github.com/op-3", label: "Github" },
+  {
+    icon: Linkedin,
+    href: "https://om.linkedin.com/company/nahj-tech?trk=public_profile_topcard-current-company",
+    label: "LinkedIn",
+  },
+  {
+    icon: Instagram,
+    href: "https://www.instagram.com/nahj.tech/",
+    label: "Instagram",
+  },
 ];
 
 export default function Footer() {
@@ -64,7 +61,7 @@ export default function Footer() {
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
           {/* Company Info */}
-          <div className="lg:col-span-4 space-y-8">
+          <div className="lg:col-span-5 space-y-8">
             {/* Logo with Shadow */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -108,7 +105,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3 text-gray-600">
                 <Phone className="w-5 h-5 text-nahj-copper" />
-                <span>+1 77444980</span>
+                <span>+968 77444980</span>
               </div>
               <div className="flex items-center gap-3 text-gray-600">
                 <MapPin className="w-5 h-5 text-nahj-copper" />
@@ -118,7 +115,7 @@ export default function Footer() {
           </div>
 
           {/* Navigation Links */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div className="lg:col-span-4">
             {navigationLinks.map((section, index) => (
               <motion.div
                 key={section.title}
@@ -150,42 +147,27 @@ export default function Footer() {
             ))}
           </div>
 
-          {/* Newsletter */}
+          {/* Social Links - Repositioned */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
-            className="lg:col-span-2 space-y-8"
+            className="lg:col-span-3 flex flex-col"
           >
-            <h3 className="text-lg font-semibold text-gray-900">
-              Stay Updated
+            <h3 className="text-lg font-semibold text-gray-900 mb-6">
+              Connect With Us
             </h3>
-            <div className="relative">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 
-                         focus:border-nahj-copper focus:ring-2 focus:ring-nahj-copper/20 
-                         outline-none transition-all duration-300"
-              />
-              <button
-                className="absolute right-2 top-1/2 -translate-y-1/2 
-                               bg-nahj-copper text-white p-2 rounded-lg
-                               hover:bg-nahj-copper/90 transition-all duration-300"
-              >
-                <Mail className="w-4 h-4" />
-              </button>
-            </div>
 
-            {/* Social Links */}
             <div className="flex gap-4">
               {socialLinks.map((social) => (
                 <motion.a
                   key={social.label}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="p-2 bg-white rounded-lg shadow-md hover:shadow-lg
+                  className="p-3 bg-white rounded-lg shadow-md hover:shadow-lg
                            border border-gray-100 hover:border-nahj-copper/30
                            transition-all duration-300"
                   aria-label={social.label}

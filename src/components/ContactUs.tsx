@@ -2,25 +2,10 @@
 
 import { useRef } from "react";
 import { motion } from "framer-motion";
-import {
-  Phone,
-  Mail,
-  MapPin,
-  Send,
-  MessageSquare,
-  User,
-  AtSign,
-} from "lucide-react";
-import { Button } from "./ui/button";
+import { Phone, Mail, MapPin } from "lucide-react";
 
 export default function ContactUs() {
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Add form submission logic here
-  };
 
   return (
     <section
@@ -121,31 +106,49 @@ export default function ContactUs() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
-          {/* Contact Information */}
+        {/* Contact Information Card - Centered and Enhanced */}
+        <div className="max-w-2xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-6 sm:space-y-8"
+            className="relative"
           >
+            {/* Card Glow Effect */}
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-nahj-copper/30 to-nahj-copper/10 rounded-2xl sm:rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+
             <div
-              className="bg-white/80 backdrop-blur-xl 
+              className="relative bg-white/80 backdrop-blur-xl 
                          rounded-2xl sm:rounded-3xl 
-                         p-4 sm:p-6 md:p-8 
+                         p-6 sm:p-8 md:p-10 
                          border border-white/20 
                          hover:border-nahj-copper/30 
-                         transition-all duration-300 shadow-lg group"
+                         transition-all duration-500 
+                         shadow-xl hover:shadow-2xl 
+                         group transform hover:-translate-y-1"
             >
               <h3
-                className="text-xl sm:text-2xl font-bold text-nahj-copper 
-                           mb-4 sm:mb-6 
-                           group-hover:translate-x-2 transition-transform duration-300"
+                className="text-2xl sm:text-3xl font-bold 
+                           text-gray-800
+                           mb-6 sm:mb-8 
+                           group-hover:translate-x-2 transition-transform duration-300
+                           flex items-center"
               >
-                Contact Information
+                <span className="relative">
+                  Contact Information
+                  <motion.div
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="absolute -bottom-1 
+                              left-0 w-full h-0.5
+                              bg-gradient-to-r from-nahj-copper/70 to-transparent 
+                              transform origin-left"
+                  />
+                </span>
               </h3>
 
-              <div className="space-y-4 sm:space-y-6">
+              <div className="space-y-6 sm:space-y-8">
                 {/* Contact Items */}
                 {[
                   {
@@ -163,145 +166,42 @@ export default function ContactUs() {
                     label: "Visit Us",
                     value: "Al-Buraimi, Oman",
                   },
-                ].map((item) => (
+                ].map((item, index) => (
                   <motion.div
                     key={item.label}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
                     whileHover={{ x: 10 }}
-                    className="flex items-center gap-3 sm:gap-4"
+                    className="flex items-center gap-4 sm:gap-6"
                   >
                     <div
-                      className="p-2 sm:p-3 bg-nahj-copper/10 rounded-full 
-                                  group-hover:bg-nahj-copper/20 
-                                  transition-all duration-300"
+                      className="p-3 sm:p-4 
+                                bg-gradient-to-br from-nahj-copper/20 to-nahj-copper/5
+                                rounded-full 
+                                group-hover:from-nahj-copper/30 group-hover:to-nahj-copper/10
+                                shadow-md
+                                transition-all duration-300
+                                border border-nahj-copper/10"
                     >
-                      <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-nahj-copper" />
+                      <item.icon className="w-6 h-6 sm:w-7 sm:h-7 text-nahj-copper" />
                     </div>
                     <div>
-                      <p className="text-sm sm:text-base text-gray-600">
+                      <p className="text-sm sm:text-base text-gray-500 font-medium">
                         {item.label}
                       </p>
-                      <p className="text-base sm:text-lg font-medium text-gray-800">
+                      <p className="text-base sm:text-xl font-semibold text-gray-800 mt-0.5">
                         {item.value}
                       </p>
                     </div>
                   </motion.div>
                 ))}
               </div>
+
+              {/* Decorative Element */}
+              <div className="absolute -bottom-3 -right-3 w-20 h-20 border-b-2 border-r-2 border-nahj-copper/20 rounded-br-3xl"></div>
+              <div className="absolute -top-3 -left-3 w-20 h-20 border-t-2 border-l-2 border-nahj-copper/20 rounded-tl-3xl"></div>
             </div>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <form
-              ref={formRef}
-              onSubmit={handleSubmit}
-              className="bg-white/80 backdrop-blur-xl 
-                        rounded-2xl sm:rounded-3xl 
-                        p-4 sm:p-6 md:p-8 
-                        border border-white/20 
-                        hover:border-nahj-copper/30 
-                        transition-all duration-300 shadow-lg"
-            >
-              <div className="space-y-4 sm:space-y-6">
-                {/* Form Fields */}
-                {[
-                  {
-                    id: "name",
-                    label: "Name",
-                    type: "text",
-                    placeholder: "Your name",
-                    icon: User,
-                  },
-                  {
-                    id: "email",
-                    label: "Email",
-                    type: "email",
-                    placeholder: "your@email.com",
-                    icon: AtSign,
-                  },
-                ].map((field) => (
-                  <div key={field.id} className="space-y-1 sm:space-y-2">
-                    <label
-                      htmlFor={field.id}
-                      className="block text-sm sm:text-base text-gray-700 font-medium"
-                    >
-                      {field.label}
-                    </label>
-                    <div className="relative">
-                      <field.icon
-                        className="w-4 h-4 sm:w-5 sm:h-5 
-                                           text-gray-400 absolute left-3 
-                                           top-1/2 -translate-y-1/2"
-                      />
-                      <input
-                        type={field.type}
-                        id={field.id}
-                        className="w-full pl-9 sm:pl-10 pr-4 
-                                 py-2.5 sm:py-3 rounded-xl 
-                                 border border-gray-200 
-                                 focus:border-nahj-copper 
-                                 focus:ring-2 focus:ring-nahj-copper/20 
-                                 outline-none transition-all duration-300
-                                 bg-white/50 backdrop-blur-sm
-                                 text-sm sm:text-base"
-                        placeholder={field.placeholder}
-                      />
-                    </div>
-                  </div>
-                ))}
-
-                {/* Message Field */}
-                <div className="space-y-1 sm:space-y-2">
-                  <label
-                    htmlFor="message"
-                    className="block text-sm sm:text-base text-gray-700 font-medium"
-                  >
-                    Message
-                  </label>
-                  <div className="relative">
-                    <MessageSquare
-                      className="w-4 h-4 sm:w-5 sm:h-5 
-                                            text-gray-400 absolute left-3 top-3"
-                    />
-                    <textarea
-                      id="message"
-                      rows={4}
-                      className="w-full pl-9 sm:pl-10 pr-4 
-                               py-2.5 sm:py-3 rounded-xl 
-                               border border-gray-200 
-                               focus:border-nahj-copper 
-                               focus:ring-2 focus:ring-nahj-copper/20 
-                               outline-none transition-all duration-300
-                               bg-white/50 backdrop-blur-sm
-                               text-sm sm:text-base"
-                      placeholder="Your message"
-                    />
-                  </div>
-                </div>
-
-                {/* Submit Button */}
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Button
-                    type="submit"
-                    className="w-full bg-nahj-copper hover:bg-nahj-copper/90 
-                              text-white py-3 sm:py-4 rounded-xl
-                              text-sm sm:text-base
-                              flex items-center justify-center gap-2 
-                              transition-all duration-300"
-                  >
-                    <Send className="w-4 h-4 sm:w-5 sm:h-5" />
-                    Send Message
-                  </Button>
-                </motion.div>
-              </div>
-            </form>
           </motion.div>
         </div>
       </div>

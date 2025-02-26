@@ -2,11 +2,18 @@
 
 import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Github, ExternalLink, Code2, Sparkles } from "lucide-react";
+import {
+  Github,
+  ExternalLink,
+  Code2,
+  Sparkles,
+  MoreHorizontal,
+} from "lucide-react";
 import { Button } from "./ui/button";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import VanillaTilt from "vanilla-tilt";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,22 +28,22 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "Project Name 1",
+    title: "NAHJ Website",
     description:
-      "An innovative open-source solution that helps developers build better applications faster. Features include automated testing, CI/CD integration, and performance optimization.",
-    tags: ["React", "TypeScript", "Node.js"],
-    github: "#",
-    demo: "#",
-    image: "/project1.png",
+      "Modern personal portfolio and brand website built with Next.js, Three.js, and advanced animations. Features responsive design, 3D elements, interactive components, and optimized performance.",
+    tags: ["Next.js", "Three.js", "GSAP", "Framer Motion"],
+    github: "https://github.com/op-3/NAHJ-New",
+    demo: "https://nahj.tech",
+    image: "/nahj-project.png",
   },
   {
-    title: "Project Name 2",
+    title: "Oman Hackathons",
     description:
-      "A comprehensive development toolkit that streamlines the process of building modern web applications. Includes state management, API integration, and UI components.",
-    tags: ["Next.js", "GraphQL", "Tailwind"],
-    github: "#",
-    demo: "#",
-    image: "/project2.png",
+      "Official platform for Oman's hackathon events with Firebase authentication, event registration, team formation, and participant management. Features responsive UI and real-time updates.",
+    tags: ["Next.js", "Firebase", "Tailwind CSS", "Headless UI"],
+    github: "https://github.com/op-3/oman-hackathon",
+    demo: "https://www.omanhackathons.org/",
+    image: "/hackathon-project.png",
   },
 ];
 
@@ -138,29 +145,89 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
 
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-          <Button
-            variant="default"
-            className="w-full sm:w-auto bg-nahj-copper hover:bg-nahj-copper/90 
+          <Link
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto"
+          >
+            <Button
+              variant="default"
+              className="w-full bg-nahj-copper hover:bg-nahj-copper/90 
                      text-white text-sm sm:text-base
                      shadow-lg hover:shadow-xl transition-all duration-300
                      flex items-center justify-center gap-2 
                      px-4 sm:px-6 py-2 sm:py-4 rounded-full"
+            >
+              <Github className="w-4 h-4" />
+              <span>View Source</span>
+            </Button>
+          </Link>
+          <Link
+            href={project.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto"
           >
-            <Github className="w-4 h-4" />
-            <span>View Source</span>
-          </Button>
-          <Button
-            variant="outline"
-            className="w-full sm:w-auto border-nahj-copper text-nahj-copper 
+            <Button
+              variant="outline"
+              className="w-full border-nahj-copper text-nahj-copper 
                      hover:bg-nahj-copper/10 text-sm sm:text-base
                      flex items-center justify-center gap-2 
                      px-4 sm:px-6 py-2 sm:py-4 rounded-full"
-          >
-            <ExternalLink className="w-4 h-4" />
-            <span>Live Demo</span>
-          </Button>
+            >
+              <ExternalLink className="w-4 h-4" />
+              <span>Live Demo</span>
+            </Button>
+          </Link>
         </div>
       </div>
+    </motion.div>
+  );
+};
+
+const MoreProjectsCard = () => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.8,
+        delay: 0.8,
+        ease: "easeOut",
+      }}
+      className="relative col-span-1 lg:col-span-2 mt-8 sm:mt-12"
+    >
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-nahj-copper/10 to-nahj-copper/5 
+                 rounded-[20px] sm:rounded-[25px] md:rounded-[30px] blur-xl
+                 transition-all duration-500 opacity-40"
+      />
+
+      <motion.div
+        whileHover={{ scale: 1.02 }}
+        className="relative bg-white/70 backdrop-blur-xl 
+                 rounded-[20px] sm:rounded-[25px] md:rounded-[30px] 
+                 p-8 sm:p-10 md:p-12
+                 border border-white/20 hover:border-nahj-copper/30 
+                 transition-all duration-500
+                 shadow-lg hover:shadow-2xl"
+      >
+        <div className="flex items-center gap-4">
+          <div className="p-4 rounded-full bg-nahj-copper/10 text-nahj-copper">
+            <MoreHorizontal className="w-6 h-6 md:w-8 md:h-8" />
+          </div>
+          <div>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-800">
+              And More to Come
+            </h3>
+            <p className="text-gray-600 mt-2 max-w-xl">
+              Exploring new technologies and frameworks to develop innovative
+              solutions that solve real-world problems.
+            </p>
+          </div>
+        </div>
+      </motion.div>
     </motion.div>
   );
 };
@@ -237,6 +304,7 @@ export default function OpenSource() {
           {projects.map((project, index) => (
             <ProjectCard key={project.title} project={project} index={index} />
           ))}
+          <MoreProjectsCard />
         </div>
       </div>
     </section>
