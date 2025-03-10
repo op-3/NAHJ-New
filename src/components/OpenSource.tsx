@@ -259,7 +259,6 @@ export default function OpenSource() {
                       py-8 sm:py-12 md:py-20 lg:py-32 overflow-hidden"
       id="projects"
     >
-      {/* Background Decorations */}
       <div className="absolute inset-0 w-full h-full">
         <div
           className="absolute top-10 sm:top-20 left-5 sm:left-10 
@@ -274,7 +273,6 @@ export default function OpenSource() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header Section */}
         <div ref={headerRef} className="text-center mb-12 sm:mb-20 md:mb-32">
           <motion.div className="relative inline-block mb-4 sm:mb-6">
             <Sparkles
@@ -299,7 +297,6 @@ export default function OpenSource() {
           </p>
         </div>
 
-        {/* Projects Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
           {projects.map((project, index) => (
             <ProjectCard key={project.title} project={project} index={index} />

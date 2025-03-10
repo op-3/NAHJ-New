@@ -8,6 +8,16 @@ const nextConfig = {
     });
     return config;
   },
+  images: {
+    domains: [
+      "instagram.fmct5-1.fna.fbcdn.net",
+      "instagram.com",
+      "www.instagram.com",
+      "scontent.cdninstagram.com",
+      "scontent-iad3-1.cdninstagram.com",
+      "cdninstagram.com",
+    ],
+  },
 };
 
 module.exports = nextConfig;

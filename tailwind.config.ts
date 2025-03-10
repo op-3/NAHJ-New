@@ -21,6 +21,17 @@ export default {
           "3": "3px",
         },
       },
+      animation: {
+        "float-slow": "float 7s ease-in-out infinite",
+        "float-medium": "float 5s ease-in-out infinite",
+        "float-fast": "float 4s ease-in-out infinite",
+      },
+      keyframes: {
+        float: {
+          "0%, 100%": { transform: "translateY(0) rotate(0)" },
+          "50%": { transform: "translateY(20px) rotate(5deg)" },
+        },
+      },
     },
     darkMode: "class",
   },
