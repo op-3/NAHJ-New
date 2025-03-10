@@ -138,6 +138,11 @@ export default function Hero() {
     isMounted && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   const isIOSSafari = isIOS && isSafari;
 
+  // Use will-change property sparingly and only for the main elements
+  const willChangeStyle = isIOSSafari
+    ? {}
+    : { willChange: "transform, opacity" };
+
   return (
     <>
       <div className="fixed inset-0 overflow-hidden z-0 bg-gradient-to-br from-white to-gray-50">
@@ -181,7 +186,7 @@ export default function Hero() {
         className="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden"
       >
         <motion.div
-          style={isMobile ? {} : { y, opacity }}
+          style={isMobile ? {} : { ...willChangeStyle, y, opacity }}
           className="relative z-10 w-full flex-1 flex items-center justify-center"
         >
           <div className="w-full flex justify-center items-center px-4 sm:px-6 lg:px-8">
@@ -194,6 +199,8 @@ export default function Hero() {
                   width={500}
                   height={500}
                   priority={true}
+                  loading="eager"
+                  sizes="(max-width: 640px) 280px, (max-width: 1024px) 400px, 500px"
                   className="w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[500px] 
                   relative z-10 object-contain
                   [filter:drop-shadow(0_0_15px_rgba(0,0,0,0.4))_drop-shadow(0_0_30px_rgba(0,0,0,0.3))_drop-shadow(0_0_45px_rgba(0,0,0,0.2))]"
@@ -222,6 +229,8 @@ export default function Hero() {
                     width={500}
                     height={500}
                     priority={true}
+                    loading="eager"
+                    sizes="(max-width: 640px) 280px, (max-width: 1024px) 400px, 500px"
                     className="w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[500px] 
                     relative z-10 object-contain
                     [filter:drop-shadow(0_0_15px_rgba(0,0,0,0.4))_drop-shadow(0_0_30px_rgba(0,0,0,0.3))_drop-shadow(0_0_45px_rgba(0,0,0,0.2))]"

@@ -21,7 +21,6 @@ const nextConfig = {
   },
   // Add performance optimizations
   experimental: {
-    optimizeCss: true,
     scrollRestoration: true,
   },
   // Optimize for mobile
