@@ -47,6 +47,7 @@ const FloatingShape: React.FC<FloatingShapeProps> = ({
 
 const ParticleEffect = () => {
   const [dimensions, setDimensions] = useState({ width: 1000, height: 1000 });
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setDimensions({
@@ -54,11 +55,15 @@ const ParticleEffect = () => {
       height: window.innerHeight,
     });
 
+    // Check if device is mobile
+    setIsMobile(window.innerWidth < 768);
+
     const handleResize = () => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
+      setIsMobile(window.innerWidth < 768);
     };
 
     window.addEventListener("resize", handleResize);
@@ -73,9 +78,12 @@ const ParticleEffect = () => {
     return Math.random() * dimensions.height;
   };
 
+  // Reduce number of particles on mobile
+  const particleCount = isMobile ? 5 : 20;
+
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {[...Array(20)].map((_, i) => (
+      {[...Array(particleCount)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute w-1 h-1 bg-nahj-copper/20 rounded-full"
@@ -98,8 +106,10 @@ const ParticleEffect = () => {
   );
 };
 
+// Lazy load the particle effect with SSR disabled
 const DynamicParticleEffect = dynamic(() => Promise.resolve(ParticleEffect), {
   ssr: false,
+  loading: () => null, // Don't show anything while loading
 });
 
 export default function Hero() {
@@ -107,6 +117,26 @@ export default function Hero() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 800], [0, -100]);
   const opacity = useTransform(scrollY, [0, 500], [1, 0]);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    setIsMobile(window.innerWidth < 768);
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Skip animations on mobile Safari
+  const isIOS = isMounted && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isSafari =
+    isMounted && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const isIOSSafari = isIOS && isSafari;
 
   return (
     <>
@@ -114,20 +144,26 @@ export default function Hero() {
         <div className="absolute top-0 left-0 w-[60%] sm:w-[40%] h-[50%] rounded-full bg-gradient-to-r from-nahj-copper/20 to-transparent blur-3xl sm:blur-4xl" />
         <div className="absolute bottom-0 right-0 w-[60%] sm:w-[40%] h-[50%] rounded-full bg-gradient-to-l from-nahj-copper/20 to-transparent blur-3xl sm:blur-4xl" />
 
-        <FloatingShape
-          className="absolute top-[10%] left-[20%] w-12 sm:w-16 h-12 sm:h-16 bg-nahj-copper/5 rounded-2xl rotate-12"
-          animationDuration={6}
-        />
-        <FloatingShape
-          className="absolute top-[20%] right-[15%] w-16 sm:w-20 h-16 sm:h-20 bg-nahj-copper/10 rounded-full"
-          animationDuration={7}
-        />
-        <FloatingShape
-          className="absolute bottom-[15%] left-[10%] w-20 sm:w-24 h-20 sm:h-24 bg-nahj-copper/5 rounded-2xl -rotate-12"
-          animationDuration={8}
-        />
+        {/* Only render floating shapes on desktop */}
+        {!isMobile && (
+          <>
+            <FloatingShape
+              className="absolute top-[10%] left-[20%] w-12 sm:w-16 h-12 sm:h-16 bg-nahj-copper/5 rounded-2xl rotate-12"
+              animationDuration={6}
+            />
+            <FloatingShape
+              className="absolute top-[20%] right-[15%] w-16 sm:w-20 h-16 sm:h-20 bg-nahj-copper/10 rounded-full"
+              animationDuration={7}
+            />
+            <FloatingShape
+              className="absolute bottom-[15%] left-[10%] w-20 sm:w-24 h-20 sm:h-24 bg-nahj-copper/5 rounded-2xl -rotate-12"
+              animationDuration={8}
+            />
+          </>
+        )}
 
-        <DynamicParticleEffect />
+        {/* Only render particles on desktop or non-Safari iOS */}
+        {(!isIOSSafari || !isMobile) && <DynamicParticleEffect />}
 
         <div
           className="absolute inset-0 hidden sm:block opacity-30"
@@ -145,37 +181,55 @@ export default function Hero() {
         className="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden"
       >
         <motion.div
-          style={{ y, opacity }}
+          style={isMobile ? {} : { y, opacity }}
           className="relative z-10 w-full flex-1 flex items-center justify-center"
         >
           <div className="w-full flex justify-center items-center px-4 sm:px-6 lg:px-8">
-            <Tilt options={TILT_OPTIONS}>
-              <motion.div
-                className="relative"
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              >
-                <motion.div
-                  className="absolute inset-0 rounded-full bg-nahj-copper/20 blur-3xl"
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.5, 0.8, 0.5],
-                  }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                />
+            {isMobile ? (
+              <div className="relative">
+                <div className="absolute inset-0 rounded-full bg-nahj-copper/20 blur-3xl" />
                 <Image
                   src="/Untitled-3.png"
                   alt="NAHJ Logo"
                   width={500}
                   height={500}
+                  priority={true}
                   className="w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[500px] 
                   relative z-10 object-contain
                   [filter:drop-shadow(0_0_15px_rgba(0,0,0,0.4))_drop-shadow(0_0_30px_rgba(0,0,0,0.3))_drop-shadow(0_0_45px_rgba(0,0,0,0.2))]"
                   style={{ aspectRatio: "1/1" }}
                 />
-              </motion.div>
-            </Tilt>
+              </div>
+            ) : (
+              <Tilt options={TILT_OPTIONS}>
+                <motion.div
+                  className="relative"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                >
+                  <motion.div
+                    className="absolute inset-0 rounded-full bg-nahj-copper/20 blur-3xl"
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      opacity: [0.5, 0.8, 0.5],
+                    }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  />
+                  <Image
+                    src="/Untitled-3.png"
+                    alt="NAHJ Logo"
+                    width={500}
+                    height={500}
+                    priority={true}
+                    className="w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[500px] 
+                    relative z-10 object-contain
+                    [filter:drop-shadow(0_0_15px_rgba(0,0,0,0.4))_drop-shadow(0_0_30px_rgba(0,0,0,0.3))_drop-shadow(0_0_45px_rgba(0,0,0,0.2))]"
+                    style={{ aspectRatio: "1/1" }}
+                  />
+                </motion.div>
+              </Tilt>
+            )}
           </div>
         </motion.div>
 
@@ -186,9 +240,13 @@ export default function Hero() {
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
         >
           <motion.div
-            animate={{
-              y: [0, 12, 0],
-            }}
+            animate={
+              isMobile
+                ? {}
+                : {
+                    y: [0, 12, 0],
+                  }
+            }
             transition={{
               duration: 1.8,
               repeat: Infinity,

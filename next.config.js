@@ -17,7 +17,16 @@ const nextConfig = {
       "scontent-iad3-1.cdninstagram.com",
       "cdninstagram.com",
     ],
+    formats: ["image/webp"],
   },
+  // Add performance optimizations
+  experimental: {
+    optimizeCss: true,
+    scrollRestoration: true,
+  },
+  // Optimize for mobile
+  poweredByHeader: false,
+  compress: true,
 };
 
 module.exports = nextConfig;
