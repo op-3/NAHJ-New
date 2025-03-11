@@ -9,17 +9,22 @@ export default function NahjFilePage() {
     setMounted(true);
   }, []);
 
+  // Direct Google Drive embed URL
+  const googleDriveEmbedUrl =
+    "https://drive.google.com/file/d/1lrRLo5TxovshNrI10bhrE-8Sy6VUSUW_/preview";
+
   return (
     <>
       {mounted ? (
         <iframe
-          src="/nahj file.pdf"
-          className="w-full h-screen"
+          src={googleDriveEmbedUrl}
+          className="w-full h-screen border-0"
           title="NAHJ File PDF Viewer"
+          allowFullScreen
         />
       ) : (
         <div className="w-full h-screen flex items-center justify-center">
-          <p>Loading PDF...</p>
+          <p>Loading PDF viewer...</p>
         </div>
       )}
     </>
